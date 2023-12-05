@@ -1,4 +1,6 @@
+import copy
 import datetime
+import json
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
@@ -8,15 +10,17 @@ def get_events(creds):
     try:
         service = build("calendar", "v3", credentials=creds)
 
-        # Call the Calendar API
-        now = datetime.datetime.utcnow().isoformat() + "Z"  # 'Z' indicates UTC time
-        print("Getting the upcoming 10 events")
+        today = datetime.datetime.utcnow().replace(
+            hour=0, minute=0, second=0, microsecond=0
+        )
+        oneWeekFromToday = copy.copy(today) + datetime.timedelta(days=7)
+
         events_result = (
             service.events()
             .list(
                 calendarId="primary",
-                timeMin=now,
-                maxResults=10,
+                timeMin=today.isoformat() + "Z",
+                timeMax=oneWeekFromToday.isoformat() + "Z",
                 singleEvents=True,
                 orderBy="startTime",
             )
@@ -25,13 +29,15 @@ def get_events(creds):
         events = events_result.get("items", [])
 
         if not events:
-            print("No upcoming events found.")
+            print("No events found.")
             return
 
-        # Prints the start and name of the next 10 events
-        for event in events:
-            start = event["start"].get("dateTime", event["start"].get("date"))
-            print(start, event["summary"])
+        print(
+            json.dumps(
+                events,
+                indent=2,
+            )
+        )
 
     except HttpError as error:
         print(f"An error occurred: {error}")
