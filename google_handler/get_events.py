@@ -1,6 +1,5 @@
 import copy
 import datetime
-import json
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
@@ -32,12 +31,11 @@ def get_events(creds):
             print("No events found.")
             return
 
-        print(
-            json.dumps(
-                events,
-                indent=2,
-            )
+        eventsToSyncWithDailies = list(
+            filter(lambda event: event.get("recurringEventId"), events)
         )
+
+        return {"eventsToSyncWithDailies": eventsToSyncWithDailies}
 
     except HttpError as error:
         print(f"An error occurred: {error}")

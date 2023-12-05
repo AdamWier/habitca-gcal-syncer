@@ -3,4 +3,4 @@ from .get_events import get_events
 
 
 def get_google():
-    get_events(google_auth_flow())
+    return get_events(google_auth_flow())

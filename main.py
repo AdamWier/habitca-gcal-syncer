@@ -11,7 +11,14 @@ load_dotenv()
 
 
 def main():
-    get_google()
+    eventsToSync = get_google()
+
+    print(
+        json.dumps(
+            eventsToSync,
+            indent=2,
+        )
+    )
 
     HABITICA_USER_ID = os.getenv("HABITICA_USER_ID")
     HABITICA_API_KEY = os.getenv("HABITICA_API_KEY")
