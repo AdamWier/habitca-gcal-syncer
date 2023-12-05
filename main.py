@@ -1,11 +1,10 @@
 import json
-import os
 
-import requests
 import typer
 from dotenv import load_dotenv
 
 from google_handler.get_google import get_google
+from habitica_handler.call_habitica import call_habitica
 
 load_dotenv()
 
@@ -20,19 +19,11 @@ def main():
         )
     )
 
-    HABITICA_USER_ID = os.getenv("HABITICA_USER_ID")
-    HABITICA_API_KEY = os.getenv("HABITICA_API_KEY")
+    habiticaTasks = call_habitica()
+
     print(
         json.dumps(
-            json.loads(
-                requests.get(
-                    "https://habitica.com/api/v3/tasks/user",
-                    headers={
-                        "x-api-user": HABITICA_USER_ID,
-                        "x-api-key": HABITICA_API_KEY,
-                    },
-                ).content
-            ),
+            json.loads(habiticaTasks),
             indent=2,
         )
     )
