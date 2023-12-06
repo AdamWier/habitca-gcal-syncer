@@ -1,5 +1,5 @@
 from .auth_flow import google_auth_flow
-from .event_organizer import create_event_day_dictionary
+from .event_organizer import create_text_day_pairs
 from .get_events import get_events
 
 
@@ -10,6 +10,6 @@ def get_google():
     notFullDayEvents = list(
         filter(lambda event: event.get("start", {}).get("dateTime"), repeatingEvents)
     )
-    eventDayDictionary = create_event_day_dictionary(notFullDayEvents)
+    eventDayDictionary = create_text_day_pairs(notFullDayEvents)
 
     return {"events": eventDayDictionary}

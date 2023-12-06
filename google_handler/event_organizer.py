@@ -4,8 +4,15 @@ from functools import reduce
 from emoji import replace_emoji
 
 
-def create_event_day_dictionary(events):
-    return reduce(event_organizer, events, {})
+def create_text_day_pairs(events):
+    eventDayDictionary = reduce(event_organizer, events, {})
+    textDayPairs = list(
+        map(
+            lambda key: {"days": eventDayDictionary[key], "text": key},
+            eventDayDictionary.keys(),
+        )
+    )
+    return textDayPairs
 
 
 def event_organizer(dictionary, event):
