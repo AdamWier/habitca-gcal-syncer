@@ -31,11 +31,7 @@ def get_events(creds):
             print("No events found.")
             return
 
-        eventsToSyncWithDailies = list(
-            filter(lambda event: event.get("recurringEventId"), events)
-        )
-
-        return {"eventsToSyncWithDailies": eventsToSyncWithDailies}
+        return events
 
     except HttpError as error:
         print(f"An error occurred: {error}")
