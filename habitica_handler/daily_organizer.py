@@ -8,12 +8,18 @@ def create_day_by_daily_dictionary(dailies):
 
 
 def daily_organizer(dictionary, daily):
-    key = replace_emoji(daily.get("text"), replace="").strip()
-    daysToAdd = dictionary.get(key, [])[:]
+    key = daily.get("id")
+    processedDaily = dictionary.get(key, {"id": "", "days": [], "text": ""})
+
+    textWithoutEmoji = replace_emoji(daily.get("text"), replace="").strip()
+
+    existingDays = processedDaily.get("days", [])
     days = list(
         filter(lambda day: daily.get("repeat").get(day), daily.get("repeat").keys())
     )
-    daysToAdd.extend(days)
-    updatedDaysToAdd = list(set(daysToAdd))
-    dictionary[key] = updatedDaysToAdd
+    existingDays.extend(days)
+    updatedDaysToAdd = list(set(existingDays))
+
+    dictionary[key] = {"text": textWithoutEmoji, "days": updatedDaysToAdd}
+
     return dictionary
