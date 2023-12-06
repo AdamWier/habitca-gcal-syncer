@@ -4,7 +4,7 @@ import typer
 from dotenv import load_dotenv
 
 from google_handler.get_google import get_google
-from habitica_handler.call_habitica import call_habitica
+from habitica_handler.get_habitica import get_habitica
 
 load_dotenv()
 
@@ -19,7 +19,7 @@ def main():
         )
     )
 
-    habiticaTasks = call_habitica()
+    habiticaTasks = get_habitica()
 
     print(
         json.dumps(
