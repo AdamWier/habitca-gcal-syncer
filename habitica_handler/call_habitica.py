@@ -3,6 +3,8 @@ import os
 
 import requests
 
+from .daily_organizer import create_day_by_daily_dictionary
+
 
 def call_habitica():
     HABITICA_USER_ID = os.getenv("HABITICA_USER_ID")
@@ -19,6 +21,8 @@ def call_habitica():
     ).get("data")
 
     dailies = list(filter(lambda task: task.get("type") == "daily", tasks))
+    reducedDailies = create_day_by_daily_dictionary(dailies)
+
     todos = list(filter(lambda task: task.get("type") == "todo", tasks))
 
-    return {"dailies": dailies, "todos": todos}
+    return {"dailies": reducedDailies, "todos": todos}
