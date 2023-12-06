@@ -23,7 +23,7 @@ def main():
 
     print(
         json.dumps(
-            json.loads(habiticaTasks),
+            habiticaTasks,
             indent=2,
         )
     )
