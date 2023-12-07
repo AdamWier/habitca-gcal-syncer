@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "90836e575eb29a4d1515f7da55526f5506a3d0d835552c5be0dda79eaba5f092"
+            "sha256": "9867577eb0ce935f00751c885325914527e5c9ee27ac119b0e5af9fd2667b554"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -249,6 +249,15 @@
             "markers": "python_version >= '3.5'",
             "version": "==3.6"
         },
+        "inquirerpy": {
+            "hashes": [
+                "sha256:89d2ada0111f337483cb41ae31073108b2ec1e618a49d7110b0d7ade89fc197e",
+                "sha256:c65fdfbac1fa00e3ee4fb10679f4d3ed7a012abf4833910e63c295827fe2a7d4"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.7' and python_version < '4.0'",
+            "version": "==0.3.4"
+        },
         "markdown-it-py": {
             "hashes": [
                 "sha256:355216845c60bd96232cd8d8c40e8f9765cc86f46880e43a8fd22dc1a1a8cab1",
@@ -281,6 +290,14 @@
             "markers": "python_version >= '3.6'",
             "version": "==3.2.2"
         },
+        "pfzy": {
+            "hashes": [
+                "sha256:5f50d5b2b3207fa72e7ec0ef08372ef652685470974a107d0d4999fc5a903a96",
+                "sha256:717ea765dd10b63618e7298b2d98efd819e0b30cd5905c9707223dceeb94b3f1"
+            ],
+            "markers": "python_version >= '3.7' and python_version < '4.0'",
+            "version": "==0.3.4"
+        },
         "platformdirs": {
             "hashes": [
                 "sha256:11c8f37bcca40db96d8144522d925583bdb7a31f7b0e37e3ed4318400a8e2380",
@@ -297,6 +314,14 @@
             "index": "pypi",
             "markers": "python_version >= '3.8'",
             "version": "==3.5.0"
+        },
+        "prompt-toolkit": {
+            "hashes": [
+                "sha256:941367d97fc815548822aa26c2a269fdc4eb21e9ec05fc5d447cf09bad5d75f0",
+                "sha256:f36fe301fafb7470e86aaf90f036eef600a3210be4decf461a5b1ca8403d3cb2"
+            ],
+            "markers": "python_full_version >= '3.7.0'",
+            "version": "==3.0.41"
         },
         "protobuf": {
             "hashes": [
@@ -501,6 +526,13 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==20.25.0"
+        },
+        "wcwidth": {
+            "hashes": [
+                "sha256:f01c104efdf57971bcb756f054dd58ddec5204dd15fa31d6503ea57947d97c02",
+                "sha256:f26ec43d96c8cbfed76a5075dac87680124fa84e0855195a6184da9c187f133c"
+            ],
+            "version": "==0.2.12"
         }
     },
     "develop": {}
