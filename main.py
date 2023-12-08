@@ -1,19 +1,16 @@
 import typer
 from dotenv import load_dotenv
 
-from google_handler.get_google import get_google
-from habitica_handler.get_habitica import get_habitica
+from get_information import get_information
 from request_preparer.request_preparer import request_preparer
 
 load_dotenv()
 
 
 def main():
-    googleEvents = get_google()
+    information = get_information()
 
-    habiticaTasks = get_habitica()
-
-    request_preparer(googleEvents, habiticaTasks)
+    request_preparer(information["googleEvents"], information["habiticaTasks"])
 
 
 if __name__ == "__main__":
