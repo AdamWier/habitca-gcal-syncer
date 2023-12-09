@@ -8,13 +8,13 @@ def request_preparer(google_events, habitica_tasks):
     events_to_update_dailies = list(
         filter(
             lambda event: habitica_tasks.get("dailies").get(event.get("text")),
-            google_events.get("events"),
+            google_events.get("recurring_events"),
         )
     )
     events_to_create_dailies = list(
         filter(
             lambda event: not habitica_tasks.get("dailies").get(event.get("text")),
-            google_events.get("events"),
+            google_events.get("recurring_events"),
         )
     )
 

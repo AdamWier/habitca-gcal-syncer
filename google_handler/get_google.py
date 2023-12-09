@@ -12,4 +12,4 @@ def get_google():
     )
     event_day_dictionary = create_text_day_pairs(not_full_day_events)
 
-    return {"events": event_day_dictionary}
+    return {"recurring_events": event_day_dictionary}
