@@ -2,12 +2,12 @@ from functools import reduce
 
 
 def prepare_request_information(event_daily, habitica_tasks):
-    habitica_daily = habitica_tasks.get("dailies").get(event_daily.get("text"))
+    habitica_daily = habitica_tasks.get(event_daily.get("text"))
     days = convert_days_for_request(event_daily.get("days"))
     return {
-        "id": habitica_daily.get("id"),
+        "id": habitica_daily.get("id") if habitica_daily else "",
         "repeat": days,
-        "text_for_debugging_only": event_daily.get("text"),
+        "text": event_daily.get("text"),
     }
 
 

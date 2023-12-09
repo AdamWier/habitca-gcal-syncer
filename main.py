@@ -15,7 +15,8 @@ def main():
         information["google_events"], information["habitica_tasks"]
     )
 
-    responses = send_multiple_requests(request_information.get("update_requests"))
+    allResponses = sum(request_information.values(), [])
+    responses = send_multiple_requests(allResponses)
 
     print(responses)
 

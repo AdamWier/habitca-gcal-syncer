@@ -9,7 +9,8 @@ def send_multiple_requests(request_information):
     HABITICA_API_KEY = os.getenv("HABITICA_API_KEY")
 
     def send_requests(request_information):
-        response = requests.put(
+        request = getattr(requests, request_information.get("verb"))
+        response = request(
             request_information.get("url"),
             headers={
                 "x-api-user": HABITICA_USER_ID,
