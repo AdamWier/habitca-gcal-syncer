@@ -3,7 +3,10 @@ from concurrent.futures import ThreadPoolExecutor
 
 import requests
 
+from .with_spinner import with_spinner
 
+
+@with_spinner("Updating tasks...")
 def send_multiple_requests(request_information):
     HABITICA_USER_ID = os.getenv("HABITICA_USER_ID")
     HABITICA_API_KEY = os.getenv("HABITICA_API_KEY")
