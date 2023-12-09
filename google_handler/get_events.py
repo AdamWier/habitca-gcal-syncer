@@ -12,14 +12,14 @@ def get_events(creds):
         today = datetime.datetime.utcnow().replace(
             hour=0, minute=0, second=0, microsecond=0
         )
-        oneWeekFromToday = copy.copy(today) + datetime.timedelta(days=7)
+        one_week_from_today = copy.copy(today) + datetime.timedelta(days=7)
 
         events_result = (
             service.events()
             .list(
                 calendarId="primary",
                 timeMin=today.isoformat() + "Z",
-                timeMax=oneWeekFromToday.isoformat() + "Z",
+                timeMax=one_week_from_today.isoformat() + "Z",
                 singleEvents=True,
                 orderBy="startTime",
             )

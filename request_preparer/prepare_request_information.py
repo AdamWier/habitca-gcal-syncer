@@ -1,13 +1,13 @@
 from functools import reduce
 
 
-def prepare_request_information(eventDaily, habiticaTasks):
-    habiticaDaily = habiticaTasks.get("dailies").get(eventDaily.get("text"))
-    days = convert_days_for_request(eventDaily.get("days"))
+def prepare_request_information(event_daily, habitica_tasks):
+    habitica_daily = habitica_tasks.get("dailies").get(event_daily.get("text"))
+    days = convert_days_for_request(event_daily.get("days"))
     return {
-        "id": habiticaDaily.get("id"),
+        "id": habitica_daily.get("id"),
         "repeat": days,
-        "text_for_debugging_only": eventDaily.get("text"),
+        "text_for_debugging_only": event_daily.get("text"),
     }
 
 
@@ -17,7 +17,7 @@ def mark_days_as_true(dictionary, day):
 
 
 def convert_days_for_request(dayList):
-    defaultDays = {
+    default_days = {
         "m": False,
         "t": False,
         "w": False,
@@ -27,4 +27,4 @@ def convert_days_for_request(dayList):
         "su": False,
     }
 
-    return reduce(mark_days_as_true, dayList, defaultDays)
+    return reduce(mark_days_as_true, dayList, default_days)

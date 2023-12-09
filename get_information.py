@@ -5,11 +5,11 @@ from utils.with_spinner import with_spinner
 
 @with_spinner("Getting information...")
 def get_information():
-    googleEvents = get_google()
+    google_events = get_google()
 
-    habiticaTasks = get_habitica()
+    habitica_tasks = get_habitica()
 
     return {
-        "googleEvents": googleEvents,
-        "habiticaTasks": habiticaTasks,
+        "google_events": google_events,
+        "habitica_tasks": habitica_tasks,
     }

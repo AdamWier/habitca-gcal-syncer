@@ -12,10 +12,10 @@ def main():
     information = get_information()
 
     request_information = request_preparer(
-        information["googleEvents"], information["habiticaTasks"]
+        information["google_events"], information["habitica_tasks"]
     )
 
-    responses = send_multiple_requests(request_information.get("updateRequests"))
+    responses = send_multiple_requests(request_information.get("update_requests"))
 
     print(responses)
 

@@ -4,41 +4,43 @@ from .confirm_sync_operations import confirm_sync_operations
 from .prepare_request_information import prepare_request_information
 
 
-def request_preparer(googleEvents, habiticaTasks):
-    eventsToUpdateDailies = list(
+def request_preparer(google_events, habitica_tasks):
+    events_to_update_dailies = list(
         filter(
-            lambda event: habiticaTasks.get("dailies").get(event.get("text")),
-            googleEvents.get("events"),
+            lambda event: habitica_tasks.get("dailies").get(event.get("text")),
+            google_events.get("events"),
         )
     )
-    eventsToCreateDailies = list(
+    events_to_create_dailies = list(
         filter(
-            lambda event: not habiticaTasks.get("dailies").get(event.get("text")),
-            googleEvents.get("events"),
+            lambda event: not habitica_tasks.get("dailies").get(event.get("text")),
+            google_events.get("events"),
         )
     )
 
-    userAnswers = confirm_sync_operations(eventsToUpdateDailies, eventsToCreateDailies)
-
-    prepareRequestInformationWithHabiticaTasks = partial(
-        prepare_request_information, habiticaTasks=habiticaTasks
+    user_answers = confirm_sync_operations(
+        events_to_update_dailies, events_to_create_dailies
     )
 
-    updateRequestInformation = list(
+    prepare_request_information_with_habitica_tasks = partial(
+        prepare_request_information, habitica_tasks=habitica_tasks
+    )
+
+    update_request_information = list(
         map(
-            prepareRequestInformationWithHabiticaTasks,
-            userAnswers.get("dailiesToUpdate"),
+            prepare_request_information_with_habitica_tasks,
+            user_answers.get("dailiesToUpdate"),
         )
     )
 
-    updateRequests = list(
+    update_requests = list(
         map(
             lambda information: {
                 "url": f"https://habitica.com/api/v3/tasks/{information.get('id')}",
                 "params": {"repeat": information.get("repeat")},
             },
-            updateRequestInformation,
+            update_request_information,
         )
     )
 
-    return {"updateRequests": updateRequests}
+    return {"update_requests": update_requests}
