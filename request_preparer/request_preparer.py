@@ -32,6 +32,20 @@ def request_preparer(google_events, habitica_tasks):
         events_to_update_dailies, events_to_create_dailies, todos_to_create
     )
 
+    create_todo_requests = list(
+        map(
+            lambda answer: {
+                "url": "https://habitica.com/api/v3/tasks/user",
+                "params": {
+                    "type": "todo",
+                    "text": answer.get("text"),
+                },
+                "verb": "post",
+            },
+            user_answers.get("todosToCreate"),
+        )
+    )
+
     prepare_request_information_with_habitica_dailies = partial(
         prepare_request_information, habitica_tasks=habitica_tasks.get("dailies")
     )
@@ -43,13 +57,6 @@ def request_preparer(google_events, habitica_tasks):
         )
     )
 
-    create_daily_request_information = list(
-        map(
-            prepare_request_information_with_habitica_dailies,
-            user_answers.get("dailiesToCreate"),
-        )
-    )
-
     update_daily_requests = list(
         map(
             lambda information: {
@@ -58,6 +65,13 @@ def request_preparer(google_events, habitica_tasks):
                 "verb": "put",
             },
             update_daily_request_information,
+        )
+    )
+
+    create_daily_request_information = list(
+        map(
+            prepare_request_information_with_habitica_dailies,
+            user_answers.get("dailiesToCreate"),
         )
     )
 
@@ -79,4 +93,5 @@ def request_preparer(google_events, habitica_tasks):
     return {
         "update_daily_requests": update_daily_requests,
         "create_daily_requests": create_daily_requests,
+        "create_todo_requests": create_todo_requests,
     }
