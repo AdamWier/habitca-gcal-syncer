@@ -18,8 +18,18 @@ def request_preparer(google_events, habitica_tasks):
         )
     )
 
+    todos_to_create = list(
+        filter(
+            lambda event: not any(
+                todo.get("text", "") in event.get("text")
+                for todo in habitica_tasks.get("todos")
+            ),
+            google_events.get("non_recurring_events"),
+        )
+    )
+
     user_answers = confirm_sync_operations(
-        events_to_update_dailies, events_to_create_dailies
+        events_to_update_dailies, events_to_create_dailies, todos_to_create
     )
 
     prepare_request_information_with_habitica_tasks = partial(

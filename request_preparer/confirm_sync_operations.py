@@ -2,7 +2,9 @@ from InquirerPy import prompt
 from InquirerPy.base.control import Choice
 
 
-def confirm_sync_operations(eventsToUpdateDailies, eventsToCreateDailies):
+def confirm_sync_operations(
+    eventsToUpdateDailies, eventsToCreateDailies, todos_to_create
+):
     questions = [
         {
             "type": "checkbox",
@@ -23,6 +25,17 @@ def confirm_sync_operations(eventsToUpdateDailies, eventsToCreateDailies):
                 map(
                     lambda event: Choice(event, event.get("text"), enabled=False),
                     eventsToCreateDailies,
+                )
+            ),
+        },
+        {
+            "type": "checkbox",
+            "message": "Confirm todos to be created",
+            "name": "todosToCreate",
+            "choices": list(
+                map(
+                    lambda event: Choice(event, event.get("text"), enabled=False),
+                    todos_to_create,
                 )
             ),
         },
