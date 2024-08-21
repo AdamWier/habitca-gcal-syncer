@@ -1,37 +1,11 @@
 from functools import partial
 
-from .confirm_sync_operations import confirm_sync_operations
+from utils.remove_none_from_list import remove_none_from_list
+
 from .prepare_request_information import prepare_request_information
 
 
-def request_preparer(google_events, habitica_tasks):
-    events_to_update_dailies = list(
-        filter(
-            lambda event: habitica_tasks.get("dailies").get(event.get("text")),
-            google_events.get("recurring_events"),
-        )
-    )
-    events_to_create_dailies = list(
-        filter(
-            lambda event: not habitica_tasks.get("dailies").get(event.get("text")),
-            google_events.get("recurring_events"),
-        )
-    )
-
-    todos_to_create = list(
-        filter(
-            lambda event: not any(
-                todo.get("text", "") in event.get("text")
-                for todo in habitica_tasks.get("todos")
-            ),
-            google_events.get("non_recurring_events"),
-        )
-    )
-
-    user_answers = confirm_sync_operations(
-        events_to_update_dailies, events_to_create_dailies, todos_to_create
-    )
-
+def request_preparer(user_answers, habitica_tasks):
     create_todo_requests = list(
         map(
             lambda answer: {
@@ -50,10 +24,32 @@ def request_preparer(google_events, habitica_tasks):
         prepare_request_information, habitica_tasks=habitica_tasks.get("dailies")
     )
 
-    update_daily_request_information = list(
+    remove_daily_request_information = remove_none_from_list(
+        list(
+            map(
+                prepare_request_information_with_habitica_dailies,
+                user_answers.get("dailiesToRemove"),
+            )
+        )
+    )
+
+    remove_daily_requests = list(
         map(
-            prepare_request_information_with_habitica_dailies,
-            user_answers.get("dailiesToUpdate"),
+            lambda information: {
+                "url": f"https://habitica.com/api/v3/tasks/{information.get('id')}",
+                "params": {"repeat": information.get("repeat")},
+                "verb": "put",
+            },
+            remove_daily_request_information,
+        )
+    )
+
+    update_daily_request_information = remove_none_from_list(
+        list(
+            map(
+                prepare_request_information_with_habitica_dailies,
+                user_answers.get("dailiesToUpdate"),
+            )
         )
     )
 
@@ -94,4 +90,5 @@ def request_preparer(google_events, habitica_tasks):
         "update_daily_requests": update_daily_requests,
         "create_daily_requests": create_daily_requests,
         "create_todo_requests": create_todo_requests,
+        "remove_daily_requests": remove_daily_requests,
     }

@@ -3,7 +3,10 @@ from InquirerPy.base.control import Choice
 
 
 def confirm_sync_operations(
-    eventsToUpdateDailies, eventsToCreateDailies, todos_to_create
+    eventsToUpdateDailies,
+    eventsToCreateDailies,
+    todos_to_create,
+    dailies_not_found_as_pseudo_event,
 ):
     questions = [
         {
@@ -14,6 +17,17 @@ def confirm_sync_operations(
                 map(
                     lambda event: Choice(event, event.get("text"), enabled=True),
                     eventsToUpdateDailies,
+                )
+            ),
+        },
+        {
+            "type": "checkbox",
+            "message": "Confirm the dailies that will be removed this week",
+            "name": "dailiesToRemove",
+            "choices": list(
+                map(
+                    lambda event: Choice(event, event.get("text"), enabled=False),
+                    dailies_not_found_as_pseudo_event,
                 )
             ),
         },
