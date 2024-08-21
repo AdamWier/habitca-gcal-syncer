@@ -18,6 +18,9 @@ def main():
         information["google_events"], information["habitica_tasks"]
     )
 
+    if not user_answers.get("confirmation"):
+        return
+
     request_information = request_preparer(user_answers, information["habitica_tasks"])
 
     allRequests = sum(request_information.values(), [])
