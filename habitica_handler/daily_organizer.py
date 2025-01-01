@@ -1,14 +1,11 @@
 from functools import reduce
 
-from emoji import replace_emoji
-
-
 def create_day_by_daily_text_dictionary(dailies):
     return reduce(daily_organizer, dailies, {})
 
 
 def daily_organizer(dictionary, daily):
-    key = replace_emoji(daily.get("text"), replace="").strip()
+    key = daily.get("text").strip()
 
     processedDaily = dictionary.get(key, {"id": "", "days": []})
 

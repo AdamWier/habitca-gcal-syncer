@@ -1,5 +1,3 @@
-from emoji import replace_emoji
-
 from .auth_flow import google_auth_flow
 from .event_organizer import create_text_day_pairs
 from .get_events import get_events
@@ -21,7 +19,7 @@ def get_google():
     formatted_nonrecurring_events = list(
         map(
             lambda event: {
-                "text": replace_emoji(event.get("summary"), replace="").strip()
+                "text": event.get("summary").strip()
             },
             non_recurring_events,
         )

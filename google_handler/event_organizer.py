@@ -1,8 +1,6 @@
 from datetime import datetime
 from functools import reduce
 
-from emoji import replace_emoji
-
 from .options_from_description_parser import get_options_from_description
 
 
@@ -19,7 +17,7 @@ def create_text_day_pairs(events):
 
 def get_habitica_name(event):
     description = event.get("description", None)
-    summary = replace_emoji(event.get("summary"), replace="").strip()
+    summary = event.get("summary").strip()
     if description is None:
         return summary
     optionsDictionary = get_options_from_description(description)
